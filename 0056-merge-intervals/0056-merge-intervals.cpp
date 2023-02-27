@@ -4,12 +4,12 @@ public:
         int n = intervals.size();
         sort(intervals.begin(), intervals.end());
         vector<vector<int>> output;
-        for(auto intervals : intervals){
-            if(output.empty() || output.back()[1] < intervals[0]){
-                output.push_back(intervals);
+        for(auto interval : intervals){
+            if(output.empty() || output.back()[1] < interval[0]){
+                output.push_back(interval);
             }
             else{
-                output.back()[1] = max(output.back()[1], intervals[1]);
+                output.back()[1] = max(output.back()[1], interval[1]);
             }
         }
         return output;
