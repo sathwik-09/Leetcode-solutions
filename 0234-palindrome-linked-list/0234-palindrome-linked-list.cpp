@@ -10,27 +10,49 @@
  */
 class Solution {
 private:
-    bool checkPalindrome(vector<int> v){
-        int n=v.size();
-        int s=0;
-        int e=n-1;
-        while(s<=e){
-            if(v[s]!=v[e]){
-                return false;
-            }
-            s++;
-            e--;
+    ListNode* getMid(ListNode* head){
+        ListNode* slow=head;
+        ListNode* fast=head->next;
+        while(fast!=NULL && fast->next!=NULL){
+            fast=fast->next->next;
+            slow=slow->next;
         }
-        return true;
+        return slow;
+    }
+    ListNode* reverseList(ListNode* head){
+        ListNode* curr=head;
+        ListNode* prev=NULL;
+        while(curr!=NULL){
+            ListNode* nxt=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=nxt;
+        }
+        return prev;
     }
 public:
     bool isPalindrome(ListNode* head) {
-        vector<int> v;
-        ListNode* temp = head;
-        while(temp!=NULL){
-            v.push_back(temp->val);
-            temp=temp->next;
+        if(head->next==NULL){
+            return true;
         }
-        return checkPalindrome(v);
+        //Finding the middle element
+        ListNode* middle=getMid(head);
+        //Reverse the list after the middle elemennt
+        ListNode* temp=middle->next;
+        middle->next=reverseList(temp);
+        //Comapring two halves
+        ListNode* head1=head;
+        ListNode* head2=middle->next;
+        while(head2!=NULL){
+            if(head1->val != head2->val){
+                return false;
+            }
+            head1=head1->next;
+            head2=head2->next;
+            
+        }
+        temp=middle->next;
+        middle->next=reverseList(temp);
+        return true;
     }
 };
