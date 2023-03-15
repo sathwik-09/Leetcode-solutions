@@ -51,8 +51,7 @@ public:
             head2=head2->next;
             
         }
-        temp=middle->next;
-        middle->next=reverseList(temp);
+        
         return true;
     }
 };
