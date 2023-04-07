@@ -14,22 +14,14 @@ public:
         if(root==NULL){
             return NULL;
         }
-        if(root==p || root==q){
-            return root;
+        if(root->val<p->val && root->val<q->val){
+            return lowestCommonAncestor(root->right,p,q);
         }
-        TreeNode* leftAns = lowestCommonAncestor(root->left, p,q);
-        TreeNode* rightAns = lowestCommonAncestor(root->right,p,q);
-        if(leftAns!=NULL && rightAns!=NULL){
-            return root;
-        }
-        else if(leftAns!=NULL && rightAns==NULL){
-            return leftAns;
-        }
-        else if(leftAns==NULL && rightAns!=NULL){
-            return rightAns;
+        else if(root->val>p->val && root->val>q->val){
+            return lowestCommonAncestor(root->left,p,q);
         }
         else{
-            return NULL;
+            return root;
         }
     }
 };
