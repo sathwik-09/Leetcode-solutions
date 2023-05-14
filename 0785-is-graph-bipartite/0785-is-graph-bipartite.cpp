@@ -22,7 +22,7 @@ class Solution {
 			int n=adj.size();
 			vector<int> color(n,-1);
 			for(int i=0;i<n;i++){
-				if(color[i]==-1 && !check(i,adj,color)) return false; 
+				if(color[i]==-1 && check(i,adj,color)==false) return false; 
 			}
 			return true;
 		}
