@@ -9,6 +9,7 @@ public:
     }
     */
     int tribonacci(int n) {
+        /*
         vector<int>dp(n+1,0);
         for(int i=0;i<=n;i++){
             if(i==0 || i == 1) dp[i] = i;
@@ -18,6 +19,19 @@ public:
             }
         }
         return dp[n];
+        */
+        if(n<3){
+            if(n>0) return 1;
+            else return 0;
+        }
+        int one = 0, two = 1, three = 1;
+        for(int i=0; i<n-2; i++){
+            int ans = one + two + three;
+            one = two;
+            two = three;
+            three = ans;
+        }
+        return three;
     }
     
 };
