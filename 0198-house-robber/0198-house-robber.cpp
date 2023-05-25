@@ -1,21 +1,17 @@
 
-//    MEMOIZATION
+//    TABULATI0N
 class Solution {
 public:
-    int solve(int index, vector<int> nums, vector<int>& dp){
-        if(index==0) return nums[index];
-        if(index<0) return 0;
-        if(dp[index]!=-1) return dp[index];
-        int maxi = INT_MIN;
-        int left = nums[index] + solve(index-2,nums,dp);
-        int right = solve(index-1,nums,dp);
-        maxi = max(left,right);
-        return dp[index]=maxi;
-        
-    }
     int rob(vector<int>& nums) {
         int n = nums.size();
         vector<int> dp(n,-1);
-        return solve(n-1,nums,dp);
+        dp[0] = nums[0];
+        for(int i=1; i<n; i++){
+            int left = nums[i];
+            if(i>1) left += dp[i-2];
+            int right = dp[i-1];
+            dp[i] = max(left,right);
+        }
+        return dp[n-1];
     }
 };
