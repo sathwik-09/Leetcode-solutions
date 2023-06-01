@@ -13,8 +13,23 @@ public:
     }
     int coinChange(vector<int>& coins, int amount) {
         int n = coins.size();
-        vector<vector<int>> dp(n,vector<int>(amount+1,-1));
-        int ans = solve(n-1,coins,amount,dp);
+        vector<vector<int>> dp(n,vector<int>(amount+1,0));
+        for(int t=0; t<=amount; t++){
+            if(t%coins[0]==0){
+                dp[0][t]=t/coins[0];
+            }
+            else dp[0][t]=1e9;
+        }
+        for(int index=1; index<n; index++){
+            for(int t=0; t<=amount; t++){
+                int exclude = 0 + dp[index-1][t];
+                int include = INT_MAX;
+                if(coins[index]<=t) include = 1 + dp[index][t-coins[index]];
+                dp[index][t]=min(include,exclude);
+            }
+            
+        }
+        int ans = dp[n-1][amount];
         if(ans!=1e9) return ans;
         else return -1;
     }
