@@ -10,7 +10,7 @@ private:
             for (int i = 0; i < isConnected.size(); i++) {
                 if (isConnected[val][i] && !visited[i]) {
                     q.push(i);
-                    visited[i] = true;
+                    visited[i] = 1;
                 }
             }
         }
@@ -18,7 +18,7 @@ private:
 public:
     int findCircleNum(vector<vector<int>>& isConnected) {
         int n= isConnected.size();
-        vector<int> visited(n);
+        vector<int> visited(n,0);
         int cnt=0;
         for(int i=0; i<n; i++){
             if(!visited[i]){
