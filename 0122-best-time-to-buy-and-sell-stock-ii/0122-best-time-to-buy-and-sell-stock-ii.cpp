@@ -14,18 +14,19 @@ public:
     */
     int maxProfit(vector<int>& prices) {
         int n = prices.size();
-        vector<vector<long long>> dp(n+1,vector<long long>(2,0));
-        dp[n][0] = dp[n][1] = 0;
+        vector<long long> front(2,0), curr(2,0);
+        front[0] = front[1] = 0;
         for(int ind=n-1; ind>=0; ind--){
             for(int buy=0; buy<=1; buy++){
                 long long profit = 0;
                 if(buy==1){
-                    profit=max((-prices[ind]+dp[ind+1][0]),dp[ind+1][1]);
+                    profit=max((-prices[ind]+front[0]),front[1]);
                 }
-                else profit = max((prices[ind]+dp[ind+1][1]),dp[ind+1][0]);
-                dp[ind][buy] = profit;
+                else profit = max((prices[ind]+front[1]),front[0]);
+                curr[buy] = profit;
             }
+            front = curr;
         }
-        return dp[0][1];
+        return front[1];
     }
 };
